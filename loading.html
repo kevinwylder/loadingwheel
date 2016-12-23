@@ -1,0 +1,48 @@
+<head>
+
+	<script type="text/javascript">
+		
+		var canvas;
+		
+		var time = 0;
+		var loopTime = 500;
+		
+		var numRings = 9;
+		var ringSize = 30;
+		var lineWidth = 25;
+		
+		function stepCanvas() {
+			canvas.fillRect(0,0,1000,1000);
+			var percentLoop = (time % loopTime) / loopTime;
+			for (var ring = 0; ring < numRings; ring++) {
+				var radius = ringSize * (ring + 1);
+				var startAngle = percentLoop * Math.PI * 2 * (ring + 2);
+				canvas.strokeStyle="#000000";
+				canvas.beginPath();
+				canvas.arc(500, 500, radius, startAngle, startAngle + (Math.PI / 2));
+				canvas.stroke();
+				canvas.strokeStyle="#FFFFFF";
+				canvas.beginPath();
+				canvas.arc(500, 500, radius, startAngle + Math.PI, startAngle + (3 * Math.PI / 2));
+				canvas.stroke();
+			}
+			time++;
+		}
+		
+		function init() {
+			canvas = document.getElementById("canvas").getContext("2d");
+			canvas.lineWidth = lineWidth;
+			canvas.fillStyle="#999999";
+			window.setInterval(stepCanvas, 30);
+		}
+		
+	</script>
+	
+	
+</head>
+
+<body onload="init();">
+
+	<canvas width="1000" height="1000" style="border:1px, solid, black; width:500;height:500" id="canvas"/>
+
+</body>
